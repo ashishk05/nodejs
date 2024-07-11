@@ -52,3 +52,9 @@ export const postCreationRequiredFields = {
   TITLE: 'title',
   DESCRIPTION: 'description'
 };
+
+// post fields that can be updated
+export const possiblePostUpdateFields = {
+  TITLE: 'post_title',
+  DESCRIPTION: 'description'
+};

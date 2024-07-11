@@ -24,5 +24,10 @@ export const userRoutes = (app) => {
     app
     .route('/posts')
     .get(PostController.getAllPosts)
-    .post(AuthMiddlewares.checkAuth);
+    .post(AuthMiddlewares.checkAuth, PostController.createPost);
+
+    app
+    .route('/posts/:id')
+    .get(PostController.getPostById)
+    .patch(AuthMiddlewares.checkAuth, PostController.updatePost);
 };
