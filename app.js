@@ -5,16 +5,21 @@ import { userRoutes } from './routes/user.routes.js';
 import { STATUS_CODES } from './helpers/constants.js';
 import { authRoutes } from './routes/auth.routes.js';
 import { AppError, handleError } from './helpers/error.js';
+import swaggerUi from 'swagger-ui-express';
+import swaggerJSDoc from 'swagger-jsdoc';
+import bodyParser from 'body-parser';
 
 const app = express();
 
-// middlewares
-app.use(express.json());
-app.use(cookieParser());
 
+// middlewares
+app.use(express.urlencoded({ extended: false })); // For parsing URL-encoded bodies
+app.use(cookieParser());
 // routes
 authRoutes(app);
 userRoutes(app);
+
+
 
 app.all('*', (req, _, next) => {
   next(new AppError(`Can't find ${req.method} ${req.originalUrl} on this server!`, STATUS_CODES.NOT_FOUND));
