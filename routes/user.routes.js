@@ -1,7 +1,9 @@
 import { UserController } from '../controllers/user.controller.js';
 import { AuthMiddlewares } from '../middlewares/auth.middleware.js';
 import { PostController } from '../controllers/post.controller.js';
-
+import { ProductController } from '../controllers/product.controller.js';
+import multer from 'multer';
+const upload = multer({ dest: './uploads' })
 // routes responsible for user and blog management
 export const userRoutes = (app) => {
   app
@@ -30,4 +32,18 @@ export const userRoutes = (app) => {
     .route('/posts/:id')
     .get(PostController.getPostById)
     .patch(AuthMiddlewares.checkAuth, PostController.updatePost);
+
+    app
+    .route('/products')
+    .get(ProductController.getAllProducts)
+    .post(AuthMiddlewares.checkAuth, ProductController.createProduct);
+
+    app
+    .route('/products/:id')
+    .get(ProductController.getProductById)
+    .patch(AuthMiddlewares.checkAuth, ProductController.updateProduct);
+
+    app
+    .route('/upload-product-image')
+    .post(AuthMiddlewares.checkAuth, ProductController.uploadProductImage);
 };

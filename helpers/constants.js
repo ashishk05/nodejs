@@ -58,3 +58,25 @@ export const possiblePostUpdateFields = {
   TITLE: 'post_title',
   DESCRIPTION: 'description'
 };
+
+// product fields that can be updated
+export const productCreationRequiredFields = {
+  TITLE: 'product_title',
+  DESCRIPTION: 'description',
+  PRODUCT_SKU: 'product_sku',
+  PRODUCT_PRICE: 'product_price',
+  PRODUCT_DISCOUNT: 'product_discount',
+  PRODUCT_IMAGE: 'product_image',
+  USER_ID: 'user_id',
+};
+
+// product fields that can be updated
+export const possibleProductUpdateFields = {
+  TITLE: 'product_title',
+  DESCRIPTION: 'description',
+  PRODUCT_SKU: 'product_sku',
+  PRODUCT_PRICE: 'product_price',
+  PRODUCT_DISCOUNT: 'product_discount',
+  PRODUCT_IMAGE: 'product_image',
+  USER_ID: 'user_id',
+};
