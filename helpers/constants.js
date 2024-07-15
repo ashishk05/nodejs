@@ -80,3 +80,10 @@ export const possibleProductUpdateFields = {
   PRODUCT_IMAGE: 'product_image',
   USER_ID: 'user_id',
 };
+
+// product inventory fields that can be updated
+export const inventoryCreationRequiredFields = {
+  PRODUCT_ID: 'product_id',
+  USER_ID: 'user_id',
+  QUANTITY: 'quantity'
+};
