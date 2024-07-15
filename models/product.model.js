@@ -32,29 +32,25 @@ export class ProductModel {
     return result;
   }
 
-  static async getPostById(id) {
-    // console.log('getPostById===', id);
-    const query = 'SELECT * FROM posts WHERE id = ?';
+  static async getProductById(id) {
+    const query = 'SELECT * FROM products WHERE id = ?';
     const param = [id];
     const result = await Database.executeQuery(query, param);
 
     return result;
   }
 
-  static async updatePost(reqObj, postId) {
-    var query = 'UPDATE posts SET updated_at = ?, ';
+  static async updateProduct(reqObj, productId) {
+    var query = 'UPDATE products SET updated_at = ?, ';
 
     const currentTime = new Date();
     const params = [currentTime];
 
     Object.entries(reqObj).forEach(([key, value], index) => {
-      //console.log('index===', index);
-      //console.log('key===', Object.keys(reqObj).length);
       if (index === Object.keys(reqObj).length -1) query += `${key} = '${value}' WHERE id= ?`;
       else query += `${key} = '${value}', `;
     });
-    console.log('query==', query);
-    params.push(postId);
+    params.push(productId);
     const result = await Database.executeQuery(query, params);
     return result;
   }

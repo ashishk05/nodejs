@@ -37,4 +37,13 @@ export const userRoutes = (app) => {
     .route('/products')
     .get(ProductController.getAllProducts)
     .post(AuthMiddlewares.checkAuth, ProductController.createProduct);
+
+    app
+    .route('/products/:id')
+    .get(ProductController.getProductById)
+    .patch(AuthMiddlewares.checkAuth, ProductController.updateProduct);
+
+    app
+    .route('/upload-product-image')
+    .post(AuthMiddlewares.checkAuth, ProductController.uploadProductImage);
 };
