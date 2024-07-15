@@ -7,7 +7,6 @@ import { AppError } from '../helpers/error.js';
 import { isAvailable, sendResponse } from '../helpers/utils.js';
 import { ProductModel } from '../models/product.model.js';
 import upload from '../middlewares/upload.middleware.js';
-import { PostModel } from '../models/post.model.js';
 
 export class ProductController {
   /**
@@ -46,7 +45,7 @@ export class ProductController {
  * @param {object} req the request object
  * @param {object} res the response object
  * @param {object} next the next middleware function in the application’s request-response cycle
- * @returns the created blog for the user
+ * @returns the created product image for the product
  */
   static async uploadProductImage(req, res, next) {
 
@@ -80,7 +79,7 @@ export class ProductController {
  * @param {object} req the request object
  * @param {object} res the response object
  * @param {object} next the next middleware function in the application’s request-response cycle
- * @returns the created blog for the user
+ * @returns the created product for the user
  */
   static async createProduct(req, res, next) {
     const { body: requestBody } = req;
@@ -94,10 +93,10 @@ export class ProductController {
     const { product_title, product_sku, product_price, product_discount, product_image, description, user_id, product_sale_price } = requestBody;
     
     try {
-      const postCreateResult = await ProductModel.createProduct(product_title, product_sku, product_price, description, product_sale_price, product_discount, product_image,  user_id);
+      const productCreateResult = await ProductModel.createProduct(product_title, product_sku, product_price, description, product_sale_price, product_discount, product_image,  user_id);
       
-      return sendResponse(res, STATUS_CODES.SUCCESSFULLY_CREATED, 'Post added successfully', {
-        id: postCreateResult.insertId,
+      return sendResponse(res, STATUS_CODES.SUCCESSFULLY_CREATED, 'Product added successfully', {
+        id: productCreateResult.insertId,
         product_title,
         description,
         user_id
@@ -115,11 +114,11 @@ export class ProductController {
 
   /**
    * @description
-   * the controller method to fetch the post corresponding to a post id
+   * the controller method to fetch the product corresponding to a product id
    * @param {object} req the request object
    * @param {object} res the response object
    * @param {object} next the next middleware function in the application’s request-response cycle
-   * @returns the post fetched from the database
+   * @returns the product fetched from the database
    */
   static async getProductById(req, res, next) {
     const productId = req.params.id;
@@ -143,11 +142,11 @@ export class ProductController {
 
   /**
    * @description
-   * the controller method to fetch all posts for a particular user
+   * the controller method to fetch all products for a particular user
    * @param {object} req the request object
    * @param {object} res the response object
    * @param {object} next the next middleware function in the application’s request-response cycle
-   * @returns the array of posts for the user
+   * @returns the array of products for the user
    */
   static async updateProduct(req, res, next) {
     const { body: requestBody } = req;
