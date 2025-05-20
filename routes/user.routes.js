@@ -3,7 +3,6 @@ import { AuthMiddlewares } from '../middlewares/auth.middleware.js';
 import { PostController } from '../controllers/post.controller.js';
 import { ProductController } from '../controllers/product.controller.js';
 import multer from 'multer';
-import { InventoryController } from '../controllers/inventory.controller.js';
 const upload = multer({ dest: './uploads' })
 // routes responsible for user and blog management
 export const userRoutes = (app) => {
@@ -25,16 +24,6 @@ export const userRoutes = (app) => {
     .delete(AuthMiddlewares.checkAuth, UserController.deleteUser);
 
     app
-    .route('/posts')
-    .get(PostController.getAllPosts)
-    .post(AuthMiddlewares.checkAuth, PostController.createPost);
-
-    app
-    .route('/posts/:id')
-    .get(PostController.getPostById)
-    .patch(AuthMiddlewares.checkAuth, PostController.updatePost);
-
-    app
     .route('/products')
     .get(ProductController.getAllProducts)
     .post(AuthMiddlewares.checkAuth, ProductController.createProduct);
@@ -47,9 +36,4 @@ export const userRoutes = (app) => {
     app
     .route('/upload-product-image')
     .post(AuthMiddlewares.checkAuth, ProductController.uploadProductImage);
-
-    app
-    .route('/inventories')
-    .get(InventoryController.getAllProductInventory)
-    .post(AuthMiddlewares.checkAuth, InventoryController.createInventory);
 };

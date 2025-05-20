@@ -6,14 +6,20 @@ export class PostModel {
    * the following method fetches all blogs from the database
    * @returns the array of blogs fetched from the database
    */
-  static async getAllPosts(user_id) {
-    const params = { user_id };
-    const query = 'SELECT * FROM posts WHERE id = ?';
+  static async getAllPosts(user_id, search = '', page = 1, limit = 1) {
+    const offset = (page - 1) * limit;
 
-    const blogs = await Database.executeQuery(query, params);
-
-    return blogs;
+    const query = `
+      SELECT * FROM posts 
+      WHERE user_id = ? AND post_title LIKE ? 
+      LIMIT ? OFFSET ?
+    `;
+    
+    const params = [user_id, `%${search}%`, limit, offset];
+    const posts = await Database.executeQuery(query, params);
+    return posts;
   }
+
 
   /**
    * @description
@@ -26,18 +32,14 @@ export class PostModel {
   static async createPost(post_title, description, user_id) {
     const query = 'INSERT INTO posts SET ?';
     const params = { user_id, post_title, description };
-
     const result = await Database.executeQuery(query, params);
-
     return result;
   }
 
   static async getPostById(id) {
-    // console.log('getPostById===', id);
     const query = 'SELECT * FROM posts WHERE id = ?';
     const param = [id];
     const result = await Database.executeQuery(query, param);
-
     return result;
   }
 
@@ -48,12 +50,10 @@ export class PostModel {
     const params = [currentTime];
 
     Object.entries(reqObj).forEach(([key, value], index) => {
-      //console.log('index===', index);
-      //console.log('key===', Object.keys(reqObj).length);
       if (index === Object.keys(reqObj).length -1) query += `${key} = '${value}' WHERE id= ?`;
       else query += `${key} = '${value}', `;
     });
-    console.log('query==', query);
+
     params.push(postId);
     const result = await Database.executeQuery(query, params);
     return result;

@@ -5,6 +5,8 @@ import { userRoutes } from './routes/user.routes.js';
 import { STATUS_CODES } from './helpers/constants.js';
 import { authRoutes } from './routes/auth.routes.js';
 import { AppError, handleError } from './helpers/error.js';
+import { postRoutes } from './routes/post.routes.js';
+import { inventoryRoutes } from './routes/inventory.routes.js';
 import swaggerUi from 'swagger-ui-express';
 import swaggerJSDoc from 'swagger-jsdoc';
 import bodyParser from 'body-parser';
@@ -21,6 +23,8 @@ app.use(cookieParser());
 // routes
 authRoutes(app);
 userRoutes(app);
+postRoutes(app);
+inventoryRoutes(app);
 
 
 app.post('/upload', upload.single('file'), (req, res) => {

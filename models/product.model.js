@@ -7,8 +7,9 @@ export class ProductModel {
    * @returns the array of blogs fetched from the database
    */
   static async getAllProducts(user_id) {
-    const params = { user_id };
-    const query = 'SELECT * FROM products WHERE id = ?';
+    const params = [user_id];
+  
+    const query = 'SELECT * FROM products join inventory on inventory.product_id = products.id WHERE products.user_id = ?';
 
     const products = await Database.executeQuery(query, params);
 

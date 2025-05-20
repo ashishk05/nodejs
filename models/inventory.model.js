@@ -9,11 +9,11 @@ export class InventoryModel {
    */
   static async getAllInventory(user_id) {
     const params = { user_id };
-    const query = 'SELECT * FROM inventory WHERE id = ?';
+    const query = 'SELECT * FROM inventory WHERE user_id = ?';
 
-    const products = await Database.executeQuery(query, params);
+    const inventory = await Database.executeQuery(query, params);
 
-    return products;
+    return inventory;
   }
 
   /**

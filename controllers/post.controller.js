@@ -20,9 +20,9 @@ export class PostController {
     try {
       const { body: requestBody } = req;
       
-      const { user_id } = requestBody;
+      const { user_id, search, page } = requestBody;
       
-      const posts = await PostModel.getAllPosts(user_id);
+      const posts = await PostModel.getAllPosts(user_id, search, page);
 
       if (!posts.length) return next(new AppError('No post found', STATUS_CODES.NOT_FOUND));
 
